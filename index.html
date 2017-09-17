@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Crystal Game</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div id="crystalsCollector"> Crystals Collector!</div>
+    <div id="instructions">You will be given a random number at the start of the game.
+        <br>
+        <br> There are a few crytals below. By clicking on a crystal you will add a specific amount of points to your total score.
+        <br>
+        <br> You win the game by matching your total score to the random number, you lose the game if your total score goes above the random number.
+        <br>
+        <br> The value of each crystal is hidden from you until you click on it.
+        <br>
+        <br> Each time when the game starts, the game will change the values of each crystal.
+        <br>
+        <br> </div>
+    <div id="score">Score</div>
+    <div id="winloss">Wins: 0  Losses: 0</div>
+    <div id="ruby"><img src="assets/images/ruby.png"></div>
+    <div id="diamond"><img src="assets/images/diamond.png"></div>
+    <div id="yellow"><img src="assets/images/yellow.png"></div>
+    <div id="emerald"><img src="assets/images/emerald.png"></div>
+    <div id="totalScore">Your Total Score is:</div>
+    <div id="currentScore">0</div>
+   
+    <script type="text/javascript">
+    
+    //variables to be set.
+    var wins = 0;
+    var losses = 0;
+    //var score = 0;
+    var currentScore = 0;
+    var rScore = 0;
+    var dScore = 0;
+    var yScore = 0;
+    var eScore = 0;
+    var todaysScore = 0;
+
+
+
+    //Computer picks a score. 
+    var pickAScore = function() {
+        todaysScore = Math.floor((Math.random() * 102) + 18); 
+        console.log(todaysScore);
+        document.querySelector("#score").innerHTML = todaysScore;
+    }
+    pickAScore();
+
+    //computer assigns random value to crystals.
+
+    //ruby
+    var rubyScore = function() {
+        rScore = Math.floor(Math.random() * 12);
+        console.log("ruby " + rScore);
+    }
+    rubyScore();
+
+    //diamond
+    var diamondScore = function() {
+        dScore = Math.floor(Math.random() * 12);
+        console.log("diamond " + dScore);
+    }
+    diamondScore();
+
+    //yellow stone
+    var yellowScore = function() {
+        yScore = Math.floor(Math.random() * 12);
+        console.log("yellow " + yScore);
+    }
+    yellowScore();
+
+    //emerald
+    var emeraldScore = function() {
+        eScore = Math.floor(Math.random() * 12);
+        console.log("emerald " + eScore);
+    }
+    emeraldScore();
+
+
+    //jquery assignments for crystals.	
+    $(document).ready(function() {
+
+        $("#ruby").on("click", function() {
+            currentScore = currentScore + rScore;
+            console.log(currentScore);
+            document.querySelector("#currentScore").innerHTML = currentScore;
+            conditions();
+        })
+
+        $("#diamond").on("click", function() {
+            currentScore = currentScore + dScore;
+            console.log(currentScore);
+            document.querySelector("#currentScore").innerHTML = currentScore;
+            conditions();
+        })
+
+        $("#yellow").on("click", function() {
+            currentScore = currentScore + yScore;
+            console.log(currentScore);
+            document.querySelector("#currentScore").innerHTML = currentScore;
+            conditions();
+        })
+
+        $("#emerald").on("click", function() {
+            currentScore = currentScore + eScore;
+            console.log(currentScore);
+            document.querySelector("#currentScore").innerHTML = currentScore;
+            conditions();
+        })
+
+
+//comparison operators for wins/losses.
+        
+
+//kev says put it in a function outside of the document ready and then call that function with each crystal...  kev says that the doc ready is what is read first and then the computer looks for those, which is why you cannot have the if statement in the doc.ready.
+
+    })
+
+function conditions() {
+if (currentScore === todaysScore) {
+            wins = wins + 1;
+            console.log(wins);
+            document.querySelector("#winloss").innerHTML = "Wins: " + wins + "  Losses: " + losses;
+            pickAScore();
+            rubyScore();
+            diamondScore();
+            yellowScore();
+            emeraldScore();
+            currentScore = 0;
+            document.querySelector("#currentScore").innerHTML = currentScore;
+
+        } else if (currentScore > todaysScore) {
+            losses = losses + 1;
+            console.log(losses);
+            document.querySelector("#winloss").innerHTML = "Wins: " + wins + "  Losses: " + losses; 
+            pickAScore();
+            rubyScore();
+            diamondScore();
+            yellowScore();
+            emeraldScore();
+            currentScore = 0;
+            document.querySelector("#currentScore").innerHTML = currentScore;
+        }
+
+}
+    </script>
+</body>
+
+</html>
